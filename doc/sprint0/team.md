@@ -2,4 +2,4 @@
 | Adil Guluzade      | A | 218636316 | adilg@my.yorku.ca   | 6475216452 | sythe#7437
 | Navid Golshan	     | A | 217998378 | navid06@my.yorku.ca | 6475456446 | itsme#2622
 
-
+https://discord.gg/cJTAvspZQz
