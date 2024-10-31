@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // Define a functional component named 'Courses' that accepts props 'courses' and 'addCourse'.
-const Courses = ({ courses, addCourse }) => {
+const Courses = ({ courses, addCourse, deleteCourse }) => {
   // State to manage the modal's open/closed status.
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -15,8 +15,8 @@ const Courses = ({ courses, addCourse }) => {
   });
 
   // Function to open the modal for adding a new course.
-  const openModal = () => {
-    setIsModalOpen(true);
+ const openModal = () => {
+   setIsModalOpen(true);
   };
 
   // Function to close the modal and reset the course details state.
@@ -38,7 +38,13 @@ const Courses = ({ courses, addCourse }) => {
     e.preventDefault(); // Prevent default form submission behavior
     addCourse(courseDetails); // Call the addCourse function passed via props with the courseDetails
     closeModal(); // Close the modal after submission
+
   };
+
+const deleteCourseHandler = (index) =>{
+  deleteCourse(index);
+}
+
 
   return (
     <div className="courses-section">
@@ -51,6 +57,10 @@ const Courses = ({ courses, addCourse }) => {
             <p>Credits: {course.credits}</p> {/* Course credits */}
             <p>Prof: {course.professor}</p> {/* Professor's name */}
             <p>Location: {course.location}</p> {/* Course location */}
+            <button onClick={() => deleteCourseHandler(index)}>Delete</button>
+
+
+
           </div>
         )) : <p>No courses added yet.</p>} {/* Message when there are no courses */}
 

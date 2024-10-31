@@ -10,15 +10,20 @@ function App() {
 
   // Function to add a new course
   const addCourse = (course) => {
-    setCourses([...courses, course]);
+    setCourses([...courses, course]); // destructring an array
   };
+
+  const deleteCourse = (index) =>{
+    // Delete element at index
+    setCourses(courses.filter((v, i) => i !== index));
+  }
 
   return (
     <div>
       <Header />
       <div className="main-container">
         <section className="courses-section">
-          <Courses courses={courses} addCourse={addCourse} />
+          <Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse}/>
         </section>
         <section className="calendar-section">
           <Calendar />
