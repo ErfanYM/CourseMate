@@ -10,6 +10,8 @@ const Calendar = () => {
     course: '',
     priority: 'Medium',
   });
+  const[isEditing, setIsEditing] = useState(false);
+  const[editIndex, setEditIndex] = useState(null);
 
   const getStartOfWeek = (date) => {
     const startOfWeek = new Date(date);
@@ -45,8 +47,18 @@ const Calendar = () => {
     setCurrentWeekStart(previousWeekStart);
   };
 
-  const openTaskModal = (day) => {
+  const openTaskModal = (day, task = null, index = null) => {
     setSelectedDay(day);
+    if(task){
+      setTaskDetails(task);
+      setIsEditing(true);
+      setEditIndex(index);
+    }
+    else{
+      setTaskDetails({ description: '', course: '', priority: 'Medium' });
+      setIsEditing(false);
+      setEditIndex(null);
+    }
     setShowTaskModal(true);
   };
 
@@ -66,8 +78,15 @@ const Calendar = () => {
 
     setTasks((prevTasks) => {
       const updatedTasksForDay = prevTasks[dateKey]
-      ? [...prevTasks[dateKey], newTask]
-      : [newTask];
+      ? [...prevTasks[dateKey]]
+      : [];
+
+      if(isEditing && editIndex !== null){
+        updatedTasksForDay[editIndex] = newTask;
+      }
+      else{
+        updatedTasksForDay.push(newTask);
+      }
 
       // Sort tasks by priority: High > Medium > Low
       updatedTasksForDay.sort((a,b) => {
@@ -80,6 +99,15 @@ const Calendar = () => {
     closeTaskModal();
   };
 
+  const handleDeleteTask = () => {
+    const dateKey = selectedDay.toDateString();
+
+    setTasks((prevTasks) => {
+      const updatedTasksForDay = prevTasks[dateKey] ? prevTasks[dateKey].filter((_,index) => index !== editIndex) : [];
+      return {...prevTasks, [dateKey]: updatedTasksForDay};
+    });
+    closeTaskModal();
+  };
 
   const weekDates = getWeekDates();
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -108,6 +136,7 @@ const Calendar = () => {
                   <li key={taskIndex}>
                     <strong>{task.priority}</strong>: {task.description}
                     {task.course && ` (Course: ${task.course})`}
+                    <button onClick={() => openTaskModal(date, task, taskIndex)} style={{marginLeft: '10px'}}>Edit</button>
                   </li>
                 ))}
               </ul>
@@ -152,7 +181,10 @@ const Calendar = () => {
               </select>
             </label>
             <div className="modal-buttons">
-              <button onClick={handleSubmitTask}>Save Task</button>
+              <button onClick={handleSubmitTask}>{isEditing ? "Save Changes" : "Save Task"}</button>
+              {isEditing && (
+                <button onClick={handleDeleteTask} style={{ backgroundColor: '#d9534f', color: 'white', marginLeft: '10px' }}>Delete Task</button>
+              )}
               <button onClick={closeTaskModal}>Cancel</button>
             </div>
           </div>
