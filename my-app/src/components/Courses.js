@@ -11,7 +11,8 @@ const Courses = ({ courses, addCourse, deleteCourse }) => {
     credits: '',      // Number of credits for the course
     term: 'F',        // Default term set to 'F' (Fall)
     professor: '',    // Professor's name
-    location: ''      // Course location
+    location: '',      // Course location
+    syllabus: null
   });
 
   // Function to open the modal for adding a new course.
@@ -27,9 +28,10 @@ const Courses = ({ courses, addCourse, deleteCourse }) => {
 
   // Function to handle changes in the input fields and update courseDetails state.
   const handleChange = (e) => {
+    const { name, value, type, files} = e.target;
     setCourseDetails({
       ...courseDetails, // Spread the existing course details
-      [e.target.name]: e.target.value // Update the specific field that changed
+      [name]: type === 'file' ? files[0] : value // Update the specific field that changed
     });
   };
 
@@ -57,7 +59,7 @@ const deleteCourseHandler = (index) =>{
             <p>Credits: {course.credits}</p> {/* Course credits */}
             <p>Prof: {course.professor}</p> {/* Professor's name */}
             <p>Location: {course.location}</p> {/* Course location */}
-            <button onClick={() => deleteCourseHandler(index)}>Delete</button>
+            <button onClick={() => deleteCourseHandler(index)}>Remove</button>
 
 
 
@@ -125,6 +127,14 @@ const deleteCourseHandler = (index) =>{
                   required // Make the field mandatory
                 />
               </label>
+              <label>
+                 Syllabus:
+                <input
+                  type="file"
+                  name="syllabus"
+                  onChange={handleChange}
+                />
+              </label>  
               <div className="modal-buttons">
                 <button type="button" onClick={closeModal}>Cancel</button> {/* Button to cancel and close modal */}
                 <button type="submit">Add Course</button> {/* Button to submit the form */}
