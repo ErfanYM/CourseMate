@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
 // Define a functional component named 'Courses' that accepts props 'courses' and 'addCourse'.
-const Courses = ({ courses, addCourse, deleteCourse, updateCourse }) => {
+const Courses = () => {
+  const [courses, setCourses] = useState([]);  // Local state for storing courses
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false); // New state to track if we're editing a course
-  const [currentCourseIndex, setCurrentCourseIndex] = useState(null); // New state to track which course is being edited
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentCourseIndex, setCurrentCourseIndex] = useState(null);
 
   const [courseDetails, setCourseDetails] = useState({
     title: '',
@@ -16,12 +17,12 @@ const Courses = ({ courses, addCourse, deleteCourse, updateCourse }) => {
   });
 
   const openModal = (courseIndex = null) => {
-    if (courseIndex !== null) { // Check if we have a course index, indicating edit mode
-      setIsEditing(true); // Set edit mode to true
-      setCurrentCourseIndex(courseIndex); // Track the index of the course being edited
-      setCourseDetails({ ...courses[courseIndex] }); // Populate form with existing course data
+    if (courseIndex !== null) {
+      setIsEditing(true);
+      setCurrentCourseIndex(courseIndex);
+      setCourseDetails({ ...courses[courseIndex] });  // Populate form with existing course data for editing
     } else {
-      setIsEditing(false); // Set edit mode to false for adding a new course
+      setIsEditing(false);
       setCourseDetails({
         title: '',
         credits: '',
@@ -58,16 +59,20 @@ const Courses = ({ courses, addCourse, deleteCourse, updateCourse }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (isEditing) { // Check if we're in edit mode
-      updateCourse(currentCourseIndex, courseDetails); // Update the existing course
+      const updatedCourses = [...courses];
+      updatedCourses[currentCourseIndex] = courseDetails;
+      setCourses(updatedCourses);
     } else {
-      addCourse(courseDetails); // Add a new course
+      setCourses([...courses, courseDetails]);
     }
     closeModal(); // Close the modal after submission
   };
 
   const deleteCourseHandler = (index) => {
-    deleteCourse(index);
+    const updatedCourses = courses.filter((_, i) => i !== index);
+    setCourses(updatedCourses);
   };
 
   return (
