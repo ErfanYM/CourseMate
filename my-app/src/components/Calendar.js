@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 
-const Calendar = () => {
+const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
   const [currentWeekStart, setCurrentWeekStart] = useState(null);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
-  const [tasks, setTasks] = useState({});
+  // const [tasks, setTasks] = useState({});
   const [taskDetails, setTaskDetails] = useState({
     description: '',
     course: '',
@@ -75,37 +75,42 @@ const Calendar = () => {
   const handleSubmitTask = () => {
     const dateKey = selectedDay.toDateString();
     const newTask = {...taskDetails};
+    // setTasks((prevTasks) => {
+    //   const updatedTasksForDay = prevTasks[dateKey]
+    //   ? [...prevTasks[dateKey]]
+    //   : [];
 
-    setTasks((prevTasks) => {
-      const updatedTasksForDay = prevTasks[dateKey]
-      ? [...prevTasks[dateKey]]
-      : [];
+    //   if(isEditing && editIndex !== null){
+    //     updatedTasksForDay[editIndex] = newTask;
+    //   }
+    //   else{
+    //     updatedTasksForDay.push(newTask);
+    //   }
 
-      if(isEditing && editIndex !== null){
-        updatedTasksForDay[editIndex] = newTask;
-      }
-      else{
-        updatedTasksForDay.push(newTask);
-      }
-
-      // Sort tasks by priority: High > Medium > Low
-      updatedTasksForDay.sort((a,b) => {
-        const priorityOrder = { High: 1, Medium: 2, Low: 3};
-        return priorityOrder[a.priority] - priorityOrder[b.priority];
-      });
+    //   // Sort tasks by priority: High > Medium > Low
+    //   updatedTasksForDay.sort((a,b) => {
+    //     const priorityOrder = { High: 1, Medium: 2, Low: 3};
+    //     return priorityOrder[a.priority] - priorityOrder[b.priority];
+    //   });
       
-      return {...prevTasks, [dateKey]: updatedTasksForDay };
-    });
+    //   return {...prevTasks, [dateKey]: updatedTasksForDay };
+    // });
+
+    addOrUpdateTask(dateKey, newTask, isEditing ? editIndex : null);
+
     closeTaskModal();
   };
 
   const handleDeleteTask = () => {
     const dateKey = selectedDay.toDateString();
 
-    setTasks((prevTasks) => {
-      const updatedTasksForDay = prevTasks[dateKey] ? prevTasks[dateKey].filter((_,index) => index !== editIndex) : [];
-      return {...prevTasks, [dateKey]: updatedTasksForDay};
-    });
+    // setTasks((prevTasks) => {
+    //   const updatedTasksForDay = prevTasks[dateKey] ? prevTasks[dateKey].filter((_,index) => index !== editIndex) : [];
+    //   return {...prevTasks, [dateKey]: updatedTasksForDay};
+    // });
+
+    deleteTask(dateKey, editIndex);
+
     closeTaskModal();
   };
 
