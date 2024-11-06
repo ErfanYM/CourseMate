@@ -16,7 +16,7 @@ function App() {
 
   const deleteCourse = (index) =>{
     // Delete element at index
-    setCourses(courses.filter((v, i) => i !== index));
+    setCourses(courses.filter((_, i) => i !== index));
   }
 
   return (
@@ -39,7 +39,13 @@ function App() {
           />
         <Route
             path="/courses"
-            element={<Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse} />}
+            element={
+              <Courses
+                courses={courses}
+                addCourse={addCourse}
+                deleteCourse={deleteCourse}
+              />
+            }
           />
           <Route path="/calendar" element={<Calendar />} />
         </Routes>
