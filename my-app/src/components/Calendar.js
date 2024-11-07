@@ -167,7 +167,7 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
               />
             </label>
           <div className="days-select">
-              {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, index) => (
+              {[ 'S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
                 <button
                   key={index}
                   onClick={() => toggleDaySelection(index)}
