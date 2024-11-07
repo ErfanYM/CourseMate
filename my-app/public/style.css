@@ -151,6 +151,29 @@ h2 {
   border-bottom: 1px solid #0e0d0d; /* Add horizontal line */
 }
 
+.days-select {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.days-select button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background-color: #e0e0e0;
+  color: #333;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.days-select button.selected {
+  background-color: #2a9d8f; /* Change color when selected */
+  color: white;
+}
+
 /* Modal */
 .modal {
   position: fixed;

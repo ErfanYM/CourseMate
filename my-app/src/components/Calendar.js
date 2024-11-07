@@ -10,8 +10,11 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
     course: '',
     priority: 'Medium',
   });
+  const [selectedDays, setSelectedDays] = useState([]);
   const[isEditing, setIsEditing] = useState(false);
   const[editIndex, setEditIndex] = useState(null);
+
+  // const daysOfWeek= ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
   const getStartOfWeek = (date) => {
     const startOfWeek = new Date(date);
@@ -53,11 +56,13 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
       setTaskDetails(task);
       setIsEditing(true);
       setEditIndex(index);
+      setSelectedDays(task.days || []); // Set selected days if editing an existing task
     }
     else{
       setTaskDetails({ description: '', course: '', priority: 'Medium' });
       setIsEditing(false);
       setEditIndex(null);
+      setSelectedDays([]);
     }
     setShowTaskModal(true);
   };
@@ -65,51 +70,39 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
   const closeTaskModal = () => {
     setShowTaskModal(false);
     setTaskDetails({description: '', course: '', priority: 'Medium'});
+    setSelectedDays([])
   };
 
   const handleInputChange = (e) => {
     const {name, value } = e.target;
     setTaskDetails((prevDetails) => ({ ...prevDetails, [name]: value}));
   };
+  const toggleDaySelection=(dayIndex) => {
+    setSelectedDays((prevDays) => 
+      prevDays.includes(dayIndex) 
+      ? prevDays.filter((day) => day !== dayIndex) //Remove day if already selected
+      : [...prevDays, dayIndex]                    //Add day if not selected
+    );
+  };
 
   const handleSubmitTask = () => {
-    const dateKey = selectedDay.toDateString();
-    const newTask = {...taskDetails};
-    // setTasks((prevTasks) => {
-    //   const updatedTasksForDay = prevTasks[dateKey]
-    //   ? [...prevTasks[dateKey]]
-    //   : [];
-
-    //   if(isEditing && editIndex !== null){
-    //     updatedTasksForDay[editIndex] = newTask;
-    //   }
-    //   else{
-    //     updatedTasksForDay.push(newTask);
-    //   }
-
-    //   // Sort tasks by priority: High > Medium > Low
-    //   updatedTasksForDay.sort((a,b) => {
-    //     const priorityOrder = { High: 1, Medium: 2, Low: 3};
-    //     return priorityOrder[a.priority] - priorityOrder[b.priority];
-    //   });
-      
-    //   return {...prevTasks, [dateKey]: updatedTasksForDay };
-    // });
-
+    // const dateKey = selectedDay.toDateString();
+    const newTask = {...taskDetails , days: selectedDays};
+   
+    // Add or update the task on each selected day
+    selectedDays.forEach((dayIndex) => {
+      const dateKey = getWeekDates()[dayIndex].toDateString(); // Get the specific date for each selected day
     addOrUpdateTask(dateKey, newTask, isEditing ? editIndex : null);
+    });
+    // addOrUpdateTask(dateKey, newTask, isEditing ? editIndex : null);
 
     closeTaskModal();
   };
 
   const handleDeleteTask = () => {
-    const dateKey = selectedDay.toDateString();
+    // const dateKey = selectedDay.toDateString();
 
-    // setTasks((prevTasks) => {
-    //   const updatedTasksForDay = prevTasks[dateKey] ? prevTasks[dateKey].filter((_,index) => index !== editIndex) : [];
-    //   return {...prevTasks, [dateKey]: updatedTasksForDay};
-    // });
-
-    deleteTask(dateKey, editIndex);
+    deleteTask(selectedDay, editIndex);
 
     closeTaskModal();
   };
@@ -160,7 +153,7 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
             name= "description"
             value= {taskDetails.description}
             onChange={handleInputChange}
-            placeholder="Enter task description"
+            placeholder="Task"
             />
           </label>
           <label>
@@ -173,6 +166,17 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
                 placeholder="Enter course name"
               />
             </label>
+          <div className="days-select">
+              {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, index) => (
+                <button
+                  key={index}
+                  onClick={() => toggleDaySelection(index)}
+                  className={selectedDays.includes(index) ? "selected" : ""}
+                >
+                  {day}
+                </button>
+              ))}
+          </div>
           <label>
               Priority Level:
               <select
