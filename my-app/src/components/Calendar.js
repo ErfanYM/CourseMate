@@ -92,7 +92,7 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
     // Add or update the task on each selected day
     selectedDays.forEach((dayIndex) => {
       const dateKey = getWeekDates()[dayIndex].toDateString(); // Get the specific date for each selected day
-    addOrUpdateTask(dateKey, newTask, isEditing ? editIndex : null);
+      addOrUpdateTask(dateKey, newTask, isEditing ? editIndex : null);
     });
     // addOrUpdateTask(dateKey, newTask, isEditing ? editIndex : null);
 
@@ -116,6 +116,9 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
       <div className="calendar-navigation">
         <button onClick={goToPreviousWeek}>{"\u2B05"} Previous Week</button>
         <button onClick={goToNextWeek}>Next Week {"\u27A1"} </button>
+        <div className="add-task-container">
+          <button className="add-task-top-button" onClick={() => openTaskModal(null)}>+ Add Task</button>
+        </div>
       </div>
       <div className="week">
         {weekDates.map((date, index) => {
@@ -126,7 +129,7 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
             <div key={index} className="day">
               {daysOfWeek[index]}<br />
               {date.toLocaleDateString()}<br />
-              <button className="add-task-button" onClick={() => openTaskModal(date)}>+ Add Task</button>
+              {/* <button className="add-task-button" onClick={() => openTaskModal(date)}>+ Add Task</button> */}
 
               {/* Display tasks for the specific day, sorted by priority */}
               <ul>
@@ -145,7 +148,7 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
       {showTaskModal && (
         <div className="modal">
           <div className="modal_content">
-          <h3>Add Task for {selectedDay.toLocaleDateString()}</h3>
+          <h3>Add Task {selectedDay ? `for ${selectedDay.toLocaleDateString()}` : ''}</h3>
           <label>
             Task Description: 
             <input 

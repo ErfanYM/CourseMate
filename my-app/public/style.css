@@ -97,6 +97,25 @@ h2 {
   justify-content: center;
   gap: 15px;
   margin-bottom: 15px;
+  align-items: center;
+  position: relative;
+}
+.add-task-container {
+  position: absolute;
+  right: 10px; 
+  top: 0;
+}
+.add-task-top-button {
+  background-color: #e76f51;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.add-task-top-button:hover {
+  background-color: #d65a42;
 }
 
 .week {
