@@ -97,6 +97,49 @@ h2 {
   justify-content: center;
   gap: 15px;
   margin-bottom: 15px;
+  align-items: center;
+  position: relative;
+}
+.navigation-button {
+  font-size: 1rem;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  background-color: #555;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.navigation-button:hover {
+  background-color: #777;
+}
+
+
+.arrow {
+  font-size: 10px; /* Adjust as needed */
+  margin-right: 5px; /* Spacing to align with text */
+  display: inline-flex;
+  align-items: center;
+}
+
+.add-task-container {
+  position: absolute;
+  right: 10px; 
+  top: 0;
+}
+.add-task-top-button {
+  background-color: #e76f51;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.add-task-top-button:hover {
+  background-color: #d65a42;
 }
 
 .week {
@@ -149,6 +192,29 @@ h2 {
 
 .week:not(:last-child) .day {
   border-bottom: 1px solid #0e0d0d; /* Add horizontal line */
+}
+
+.days-select {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.days-select button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background-color: #e0e0e0;
+  color: #333;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.days-select button.selected {
+  background-color: #2a9d8f; /* Change color when selected */
+  color: white;
 }
 
 /* Modal */
