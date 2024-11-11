@@ -4,6 +4,7 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
   const [currentWeekStart, setCurrentWeekStart] = useState(null);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
+  const [originalDays, setOriginalDays]= useState([]);
   // const [tasks, setTasks] = useState({});
   const [taskDetails, setTaskDetails] = useState({
     description: '',
@@ -57,12 +58,14 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
       setIsEditing(true);
       setEditIndex(index);
       setSelectedDays(task.days || []); // Set selected days if editing an existing task
+      setOriginalDays(task.days || []);
     }
     else{
       setTaskDetails({ description: '', course: '', priority: 'Medium' });
       setIsEditing(false);
       setEditIndex(null);
       setSelectedDays([]);
+      setOriginalDays([])
     }
     setShowTaskModal(true);
   };
@@ -90,19 +93,31 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
     const newTask = {...taskDetails , days: selectedDays};
    
     // Add or update the task on each selected day
-    selectedDays.forEach((dayIndex) => {
-      const dateKey = getWeekDates()[dayIndex].toDateString(); // Get the specific date for each selected day
-      addOrUpdateTask(dateKey, newTask, isEditing ? editIndex : null);
+    originalDays.forEach((dayIndex) => {
+      if(!selectedDays.includes(dayIndex)) {
+        const dateKey = getWeekDates()[dayIndex].toDateString();
+        deleteTask(dateKey, editIndex);
+      }
     });
-    // addOrUpdateTask(dateKey, newTask, isEditing ? editIndex : null);
+
+    selectedDays.forEach((dayIndex) => {
+      const dateKey = getWeekDates()[dayIndex].toDateString();
+      addOrUpdateTask(dateKey, newTask, isEditing ? editIndex : null);
+    })
 
     closeTaskModal();
   };
 
   const handleDeleteTask = () => {
-    // const dateKey = selectedDay.toDateString();
+    // if(selectedDay && editIndex !== null){
+    //   const dateKey = selectedDay.toDateString();
 
-    deleteTask(selectedDay, editIndex);
+    //   deleteTask(dateKey, editIndex);
+    // }
+    originalDays.forEach((dayIndex) => {
+      const dateKey = getWeekDates()[dayIndex].toDateString(); // Get the specific date for each original day
+      deleteTask(dateKey, editIndex); // Delete the task for that day
+    });
 
     closeTaskModal();
   };
