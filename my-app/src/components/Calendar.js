@@ -129,8 +129,12 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
     <div className="calendar">
       <h2>Weekly Calendar</h2>
       <div className="calendar-navigation">
-        <button onClick={goToPreviousWeek}>{"\u2B05"} Previous Week</button>
-        <button onClick={goToNextWeek}>Next Week {"\u27A1"} </button>
+        <button className="navigation-button" onClick={goToPreviousWeek}>
+        <span className="arrow">{"\u2B05"}</span> Previous Week
+        </button>
+        <button className="navigation-button" onClick={goToNextWeek}>
+          Next Week  <span className="arrow">{"\u27A1"}</span>
+        </button>
         <div className="add-task-container">
           <button className="add-task-top-button" onClick={() => openTaskModal(null)}>+ Add Task</button>
         </div>

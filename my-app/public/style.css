@@ -100,6 +100,30 @@ h2 {
   align-items: center;
   position: relative;
 }
+.navigation-button {
+  font-size: 1rem;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  background-color: #555;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.navigation-button:hover {
+  background-color: #777;
+}
+
+
+.arrow {
+  font-size: 10px; /* Adjust as needed */
+  margin-right: 5px; /* Spacing to align with text */
+  display: inline-flex;
+  align-items: center;
+}
+
 .add-task-container {
   position: absolute;
   right: 10px; 
