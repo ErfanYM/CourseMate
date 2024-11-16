@@ -126,7 +126,7 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   return (
-    <div className="calendar">
+    <div className="calendar"> 
       <h2>Weekly Calendar</h2>
       <div className="calendar-navigation">
         <div className="week-buttons">
@@ -140,7 +140,7 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
         
         <button className="add-task-top-button" onClick={() => openTaskModal(null)}>+ Add Task</button>
       </div>
-      
+
       <div className="week">
         {weekDates.map((date, index) => {
           const dateKey = date.toDateString();

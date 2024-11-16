@@ -144,7 +144,7 @@ const Courses = ({ courses, addCourse, deleteCourse }) => {
               <label>
                 Location:
                 <input
-                  type="text"
+                  type="text" 
                   name="location"
                   value={courseDetails.location}
                   onChange={handleChange}

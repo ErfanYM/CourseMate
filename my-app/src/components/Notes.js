@@ -19,7 +19,7 @@ const Notes = () => {
   };
 
   return (
-    <div className="notes-section">
+    <div className="notes-section"> 
       <h3>Notes</h3>
       <textarea
         value={notes}
