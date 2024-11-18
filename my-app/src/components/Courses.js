@@ -6,6 +6,8 @@ const Courses = ({ courses, addCourse, deleteCourse }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentCourseIndex, setCurrentCourseIndex] = useState(null);
 
+  console.log(courses);
+
   const [courseDetails, setCourseDetails] = useState({
     title: '',
     credits: '',
@@ -24,7 +26,7 @@ const Courses = ({ courses, addCourse, deleteCourse }) => {
       setIsEditing(false);
       setCourseDetails({
         title: '',
-        credits: '',
+        Credits: '',
         term: 'F',
         professor: '',
         location: '',

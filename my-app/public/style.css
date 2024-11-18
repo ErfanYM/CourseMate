@@ -84,7 +84,7 @@
   background-color: #f5f5f5;
   padding: 20px;
   border-radius: 8px;
-  width: 100%; /* Limit max width for better alignment */
+  width: 100%; /* Limit max width for better alignment */ 
   margin: 0 auto; /* Center calendar in container */
 }
 h2 {

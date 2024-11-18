@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Courses from './components/Courses';
 import Calendar from './components/Calendar';
+import { GetCourses } from "./NetworkController";
 //import './style.css';
 
 function App() {
@@ -11,9 +12,15 @@ function App() {
 
   const [tasks, setTasks] = useState({});
 
+  useEffect(() => {
+    GetCourses().then(res => {
+      setCourses(res);
+    })
+  }, []);
 
   // Function to add a new course
   const addCourse = (course) => {
+    // You want to call add function here
     setCourses([...courses, course]); // destructring an array
   };
 
