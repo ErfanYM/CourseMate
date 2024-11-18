@@ -19,17 +19,6 @@ is the documentation part of the sprints. In sprint 1, we looked into all the op
 
 ---
 
-## User Story 4 !!!!!!!!!!!!!!!!!!!!!
-
-- **Title**: Receive Deadline Notifications
-- **Description**: As a high school student, I want to receive notifications for upcoming deadlines, so that I can avoid missing assignments.
-- **Criteria of Satisfaction**:
-  1. User can receive notifications for upcoming deadlines.
-  2. Notifications occur when you have a due date the next day.
-- **Priority**: High
-
----
-
 ## User Story 5
 
 - **Title**: View All Assignments in One Place
@@ -38,17 +27,6 @@ is the documentation part of the sprints. In sprint 1, we looked into all the op
   1. User can view assignments in one place.
   2. Assignments can be edited or deleted.
 - **Priority**: Medium
-
----
-
-## User Story 6
-
-- **Title**: Add Notes to Tasks
-- **Description**: As a high school student, I want to add notes or descriptions to tasks, so that I can remember important details about assignments.
-- **Criteria of Satisfaction**:
-  1. User can assign a note to each task.
-  2. Tasks are sortable by priority.
-- **Priority**: High
 
 ---
 
@@ -74,17 +52,6 @@ is the documentation part of the sprints. In sprint 1, we looked into all the op
 
 ---
 
-## User Story 11
-
-- **Title**: Set Recurring Tasks
-- **Description**: As a high school student, I want to set recurring tasks, so that I don’t have to manually input homework that occurs regularly.
-- **Criteria of Satisfaction**:
-  1. User can set tasks to repeat on a daily, weekly, or monthly basis.
-  2. Recurring tasks are automatically added to the to-do list.
-- **Priority**: Low
-
----
-
 ## User Story 12
 
 - **Title**: Customize App Theme
@@ -96,69 +63,24 @@ is the documentation part of the sprints. In sprint 1, we looked into all the op
 
 ---
 
-## User Story 13 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-- **Title**: Collaborate with Classmates
-- **Description**: As a high school student, I want to collaborate with classmates on assignments, so that we can share task lists and updates.
-- **Criteria of Satisfaction**:
-  1. User can invite classmates to collaborate on a shared to-do list.
-  2. Collaborators can add, edit, or delete tasks.
-- **Priority**: Medium
-
----
-
-## User Story 14
-
-- **Title**: Attach Files to Tasks
-- **Description**: As a university student, I want to attach files to tasks, so that I can keep track of relevant documents (e.g., PDFs, slides).
-- **Criteria of Satisfaction**:
-  1. User can upload and attach files to specific tasks.
-  2. Files are viewable and downloadable from the task.
-- **Priority**: Medium
-
----
-
 ## User Story 16
 
 - **Title**: Search for Specific Tasks
 - **Description**: As a high school student, I want to search for specific tasks, so that I can quickly find what I need.
 - **Criteria of Satisfaction**:
-  1.
-  2.
+  1. User can search for specific tasks.
 - **Priority**: Medium
 
 ---
 
 ## User Story 17
 
-- **Title**: Export To-Do List
-- **Description**: As a university student, I want to export my to-do list, so that I can share it with others or back it up for safekeeping.
-- **Criteria of Satisfaction**:
-  1. User can export the task list as a PDF or CSV file.
-  2. Exported files include all relevant task details.
-- **Priority**: Low
-
----
-
-## User Story 18
-
-- **Title**: Estimate Task Completion Time
-- **Description**: As a high school student, I want to prioritize tasks by how long they will take, so that I can manage my time better.
-- **Criteria of Satisfaction**:
-  1. User can input estimated time for each task.
-  2. Tasks are sortable by estimated completion time.
-- **Priority**: Medium
-
----
-
-## User Story 19
-
-- **Title**: Break Assignments into sub-tasks
-- **Description**: As a university student, I want to break large assignments into smaller tasks, so that I can manage complex projects more easily.
+- **Title**: Timer
+- **Description**: As a university student, I want to keep track my time while i am studying, so i can maximize my study session.
 - **Criteria of Satisfaction**:
   1.
   2.
-- **Priority**: Medium
+- **Priority**: Low
 
 ---
 
