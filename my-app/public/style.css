@@ -10,11 +10,13 @@
   flex: 1 1 25%;
   max-width: 100%;
   margin-bottom: 20px;
+  
 }
 
 .calendar-section {
   flex: 1 1 70%;
   max-width: 100%;
+  padding: 20px;
 }
 
 /* Header */
@@ -59,14 +61,14 @@
 
 /* Course Section */
 .courses {
-  background-color: #fafafa;
+  background-color: #fafafa; 
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .course-card {
-  background-color: #f3f3f3;
+  background-color: #fafafa;
   margin: 10px 0;
   padding: 15px;
   border-radius: 6px;
@@ -92,7 +94,7 @@
 
 /* Calendar Section */
 .calendar {
-  background-color: #ffffff;
+  background-color: #fafafa; 
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -363,4 +365,3 @@
 .notes-list li button:hover {
   background-color: #c82333;
 }
-

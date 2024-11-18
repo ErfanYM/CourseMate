@@ -10,6 +10,8 @@ function App() {
   const [tasks, setTasks] = useState({});
   const [notes, setNotes] = useState([]);
 
+
+
   const addCourse = (course) => setCourses([...courses, course]);
 
   const deleteCourse = (index) => setCourses(courses.filter((_, i) => i !== index));
