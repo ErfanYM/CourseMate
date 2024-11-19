@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 
 // Define a functional component named 'Courses' that accepts props 'courses' and 'addCourse'.
-const Courses = ({ courses, addCourse, deleteCourse }) => {
+const Courses = ({ courses, addCourse, deleteCourse, updateCourse }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentCourseIndex, setCurrentCourseIndex] = useState(null);
+  const [currentCourseId, setcurrentCourseId] = useState(null);
 
   console.log(courses);
 
   const [courseDetails, setCourseDetails] = useState({
-    title: '',
+    name: '',
     credits: '',
     term: 'F',
-    professor: '',
+    professorName: '',
     location: '',
     syllabus: null,
   });
@@ -20,15 +20,15 @@ const Courses = ({ courses, addCourse, deleteCourse }) => {
   const openModal = (courseIndex = null) => {
     if (courseIndex !== null) {
       setIsEditing(true);
-      setCurrentCourseIndex(courseIndex);
+      setcurrentCourseId( courses[courseIndex].id );
       setCourseDetails({ ...courses[courseIndex] });  // Populate form with existing course data for editing
     } else {
       setIsEditing(false);
       setCourseDetails({
-        title: '',
-        Credits: '',
+        name: '',
+        credits: '',
         term: 'F',
-        professor: '',
+        professorName: '',
         location: '',
         syllabus: null,
       });
@@ -39,15 +39,15 @@ const Courses = ({ courses, addCourse, deleteCourse }) => {
   const closeModal = () => {
     setIsModalOpen(false);
     setCourseDetails({
-      title: '',
+      name: '',
       credits: '',
       term: 'F',
-      professor: '',
+      professorName: '',
       location: '',
       syllabus: null,
     });
     setIsEditing(false); // Reset edit mode
-    setCurrentCourseIndex(null); // Clear the current course index
+    setcurrentCourseId(null); // Clear the current course index
   };
 
   const handleChange = (e) => {
@@ -62,10 +62,8 @@ const Courses = ({ courses, addCourse, deleteCourse }) => {
     e.preventDefault();
 
     if (isEditing) { // Check if we're in edit mode
-      const updatedCourses = [...courses];
-      updatedCourses[currentCourseIndex] = courseDetails;
-      deleteCourse(currentCourseIndex);
-      addCourse(courseDetails);
+      const newCourse = courseDetails;
+      updateCourse({id: currentCourseId, ...newCourse});
     } else {
       addCourse(courseDetails);
     }
@@ -80,12 +78,12 @@ const Courses = ({ courses, addCourse, deleteCourse }) => {
           courses.map((course, index) => (
             <div key={index} className="course-card">
               <h3>
-                {course.title} - {course.term}
+                {course.name} - {course.term}
               </h3>
               <p>Credits: {course.credits}</p>
-              <p>Prof: {course.professor}</p>
+              <p>Prof: {course.professorName}</p>
               <p>Location: {course.location}</p>
-              <button onClick={() => deleteCourse(index)}>Remove</button>
+              <button onClick={() => deleteCourse(course.id)}>Remove</button>
               <button onClick={() => openModal(index)}>Edit</button>
             </div>
           ))
@@ -106,8 +104,8 @@ const Courses = ({ courses, addCourse, deleteCourse }) => {
                 Course Name:
                 <input
                   type="text"
-                  name="title"
-                  value={courseDetails.title}
+                  name="name"
+                  value={courseDetails.name}
                   onChange={handleChange}
                   required
                 />
@@ -137,8 +135,8 @@ const Courses = ({ courses, addCourse, deleteCourse }) => {
                 Professor Name:
                 <input
                   type="text"
-                  name="professor"
-                  value={courseDetails.professor}
+                  name="professorName"
+                  value={courseDetails.professorName}
                   onChange={handleChange}
                   required
                 />

@@ -33,7 +33,7 @@ export const AddCourse = async (course) => {
     }
 };
 
-export const UpdateCourse = async (courseId, updatedCourseData) => {
+export const UpdateCourse = async (updatedCourseData) => {
     const url = `http://localhost:5000/courses`;
     try {
       const response = await fetch(url, {
