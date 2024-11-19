@@ -3,14 +3,17 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Courses from './components/Courses';
 import Calendar from './components/Calendar';
+<<<<<<< HEAD
 import { GetCourses } from "./NetworkController";
 //import './style.css';
+=======
+import Notes from './components/Notes';
+>>>>>>> origin/main
 
 function App() {
-  // Start with an empty course list
   const [courses, setCourses] = useState([]);
-
   const [tasks, setTasks] = useState({});
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     GetCourses().then(res => {
@@ -18,32 +21,31 @@ function App() {
     })
   }, []);
 
+<<<<<<< HEAD
   // Function to add a new course
   const addCourse = (course) => {
     // You want to call add function here
     setCourses([...courses, course]); // destructring an array
   };
+=======
+>>>>>>> origin/main
 
-  const deleteCourse = (index) =>{
-    // Delete element at index
-    setCourses(courses.filter((_, i) => i !== index));
-  }
+  const addCourse = (course) => setCourses([...courses, course]);
+
+  const deleteCourse = (index) => setCourses(courses.filter((_, i) => i !== index));
 
   const addOrUpdateTask = (dateKey, task, editIndex = null) => {
     setTasks((prevTasks) => {
       const updatedTasksForDay = prevTasks[dateKey] ? [...prevTasks[dateKey]] : [];
-      
       if (editIndex !== null) {
-        updatedTasksForDay[editIndex] = task; // Edit existing task
+        updatedTasksForDay[editIndex] = task;
       } else {
-        updatedTasksForDay.push(task); // Add new task
+        updatedTasksForDay.push(task);
       }
-
       updatedTasksForDay.sort((a, b) => {
         const priorityOrder = { High: 1, Medium: 2, Low: 3 };
         return priorityOrder[a.priority] - priorityOrder[b.priority];
       });
-
       return { ...prevTasks, [dateKey]: updatedTasksForDay };
     });
   };
@@ -55,12 +57,16 @@ function App() {
     });
   };
 
+  const addNote = (note) => setNotes([...notes, note]);
+
+  const deleteNote = (index) => setNotes(notes.filter((_, i) => i !== index));
+
   return (
     <Router>
       <Header />
       <div className="main-container">
         <Routes>
-        <Route
+          <Route
             path="/"
             element={
               <>
@@ -68,28 +74,24 @@ function App() {
                   <Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse} />
                 </section>
                 <section className="calendar-section">
-                  <Calendar 
-                    tasks={tasks} 
-                    addOrUpdateTask={addOrUpdateTask} 
-                    deleteTask={deleteTask}
-                  />
+                  <Calendar tasks={tasks} addOrUpdateTask={addOrUpdateTask} deleteTask={deleteTask} />
                 </section>
               </>
             }
           />
-        <Route
+          <Route
             path="/courses"
             element={
-              <Courses
-                courses={courses}
-                addCourse={addCourse}
-                deleteCourse={deleteCourse}
-              />
+              <Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse} />
             }
           />
           <Route
             path="/calendar"
             element={<Calendar tasks={tasks} addOrUpdateTask={addOrUpdateTask} deleteTask={deleteTask} />}
+          />
+          <Route
+            path="/notes"
+            element={<Notes notes={notes} addNote={addNote} deleteNote={deleteNote} />}
           />
         </Routes>
       </div>

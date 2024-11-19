@@ -126,19 +126,21 @@ const Calendar = ({ tasks, addOrUpdateTask, deleteTask }) => {
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   return (
-    <div className="calendar">
+    <div className="calendar"> 
       <h2>Weekly Calendar</h2>
       <div className="calendar-navigation">
-        <button className="navigation-button" onClick={goToPreviousWeek}>
-        <span className="arrow">{"\u2B05"}</span> Previous Week
-        </button>
-        <button className="navigation-button" onClick={goToNextWeek}>
-          Next Week  <span className="arrow">{"\u27A1"}</span>
-        </button>
-        <div className="add-task-container">
-          <button className="add-task-top-button" onClick={() => openTaskModal(null)}>+ Add Task</button>
+        <div className="week-buttons">
+          <button className="navigation-button" onClick={goToPreviousWeek}>
+            <span className="arrow">{"\u2B05"}</span> Previous Week
+          </button>
+          <button className="navigation-button" onClick={goToNextWeek}>
+            Next Week <span className="arrow">{"\u27A1"}</span>
+          </button>
         </div>
+        
+        <button className="add-task-top-button" onClick={() => openTaskModal(null)}>+ Add Task</button>
       </div>
+
       <div className="week">
         {weekDates.map((date, index) => {
           const dateKey = date.toDateString();
