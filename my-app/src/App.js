@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Courses from './components/Courses';
 import Calendar from './components/Calendar';
+import { AddCourse, DeleteCourse, GetCourses, UpdateCourse } from "./NetworkController";
+//import './style.css';
 import Notes from './components/Notes';
 
 function App() {
@@ -10,11 +12,35 @@ function App() {
   const [tasks, setTasks] = useState({});
   const [notes, setNotes] = useState([]);
 
+  // On page load, get all of our courses
+  useEffect(() => {
+    refreshCourses();
+  }, []);
 
+  const refreshCourses = () => {
+    GetCourses().then(res => {
+      setCourses(res);
+    })
+  }
 
-  const addCourse = (course) => setCourses([...courses, course]);
+  // Function to add a new course
+  const addCourse = (course) => {
+    AddCourse(course).then(res => {
+      refreshCourses();
+    })
+  };
 
-  const deleteCourse = (index) => setCourses(courses.filter((_, i) => i !== index));
+  const updateCourse = (course) => {
+    UpdateCourse(course).then(res => {
+      refreshCourses();
+    })
+  }
+
+  const deleteCourse = (id) => {
+    DeleteCourse(id).then(res => {
+      refreshCourses();
+    })
+  }
 
   const addOrUpdateTask = (dateKey, task, editIndex = null) => {
     setTasks((prevTasks) => {
@@ -53,7 +79,7 @@ function App() {
             element={
               <>
                 <section className="courses-section">
-                  <Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse} />
+                  <Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse} updateCourse={updateCourse}/>
                 </section>
                 <section className="calendar-section">
                   <Calendar tasks={tasks} addOrUpdateTask={addOrUpdateTask} deleteTask={deleteTask} />
