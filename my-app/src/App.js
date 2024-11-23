@@ -4,13 +4,12 @@ import Header from './components/Header';
 import Courses from './components/Courses';
 import Calendar from './components/Calendar';
 import Notes from './components/Notes';
+import Timer from './components/Timer'; // Import the Pomodoro Timer
 
 function App() {
   const [courses, setCourses] = useState([]);
   const [tasks, setTasks] = useState({});
   const [notes, setNotes] = useState([]);
-
-
 
   const addCourse = (course) => setCourses([...courses, course]);
 
@@ -74,6 +73,10 @@ function App() {
           <Route
             path="/notes"
             element={<Notes notes={notes} addNote={addNote} deleteNote={deleteNote} />}
+          />
+          <Route
+            path="/timer"
+            element={<Timer />} // Add the Pomodoro Timer as its own route
           />
         </Routes>
       </div>

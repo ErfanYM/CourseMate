@@ -365,3 +365,34 @@
 .notes-list li button:hover {
   background-color: #c82333;
 }
+
+
+/* src/App.css or src/components/PomodoroTimer.css */
+.pomodoro-timer {
+  text-align: center;
+  margin: 20px;
+}
+
+.pomodoro-timer h1 {
+  font-size: 2em;
+}
+
+.pomodoro-timer label {
+  margin-right: 10px;
+}
+
+.pomodoro-timer input {
+  width: 50px;
+}
+
+.pomodoro-timer button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.pomodoro-timer p {
+  font-size: 2em;
+  margin: 20px 0;
+}
