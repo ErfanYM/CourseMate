@@ -4,7 +4,9 @@ import React, { useState } from 'react';
 const Courses = ({ courses, addCourse, deleteCourse, updateCourse }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentCourseId, setCurrentCourseId] = useState(null);
+  const [currentCourseId, setcurrentCourseId] = useState(null);
+
+  console.log(courses);
 
   const [courseDetails, setCourseDetails] = useState({
     name: '',
@@ -18,8 +20,8 @@ const Courses = ({ courses, addCourse, deleteCourse, updateCourse }) => {
   const openModal = (courseIndex = null) => {
     if (courseIndex !== null) {
       setIsEditing(true);
-      setCurrentCourseId(courses[courseIndex].id);
-      setCourseDetails({ ...courses[courseIndex] });
+      setcurrentCourseId( courses[courseIndex].id );
+      setCourseDetails({ ...courses[courseIndex] });  // Populate form with existing course data for editing
     } else {
       setIsEditing(false);
       setCourseDetails({
@@ -44,8 +46,8 @@ const Courses = ({ courses, addCourse, deleteCourse, updateCourse }) => {
       location: '',
       syllabus: null,
     });
-    setIsEditing(false);
-    setCurrentCourseId(null);
+    setIsEditing(false); // Reset edit mode
+    setcurrentCourseId(null); // Clear the current course index
   };
 
   const handleChange = (e) => {
@@ -59,8 +61,9 @@ const Courses = ({ courses, addCourse, deleteCourse, updateCourse }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (isEditing) {
-      updateCourse({ id: currentCourseId, ...courseDetails });
+    if (isEditing) { // Check if we're in edit mode
+      const newCourse = courseDetails;
+      updateCourse({id: currentCourseId, ...newCourse});
     } else {
       addCourse(courseDetails);
     }
@@ -141,7 +144,7 @@ const Courses = ({ courses, addCourse, deleteCourse, updateCourse }) => {
               <label>
                 Location:
                 <input
-                  type="text"
+                  type="text" 
                   name="location"
                   value={courseDetails.location}
                   onChange={handleChange}
