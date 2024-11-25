@@ -96,15 +96,9 @@
 .calendar {
   background-color: #fafafa; 
   padding: 20px;
-<<<<<<< HEAD
-  border-radius: 8px;
-  width: 100%; /* Limit max width for better alignment */ 
-  margin: 0 auto; /* Center calendar in container */
-=======
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   width: 100%;
->>>>>>> origin/main
 }
 
 .calendar h2 {
