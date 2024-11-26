@@ -6,6 +6,7 @@ import Calendar from './components/Calendar';
 import { AddCourse, DeleteCourse, GetCourses, UpdateCourse } from "./NetworkController";
 //import './style.css';
 import Notes from './components/Notes';
+import Timer from './components/Timer'; // Import the Pomodoro Timer
 
 function App() {
   const [courses, setCourses] = useState([]);
@@ -21,7 +22,7 @@ function App() {
     GetCourses().then(res => {
       setCourses(res);
     })
-  }
+  } 
 
   // Function to add a new course
   const addCourse = (course) => {
@@ -100,6 +101,10 @@ function App() {
           <Route
             path="/notes"
             element={<Notes notes={notes} addNote={addNote} deleteNote={deleteNote} />}
+          />
+          <Route
+            path="/timer"
+            element={<Timer />} // Add the Pomodoro Timer as its own route
           />
         </Routes>
       </div>
