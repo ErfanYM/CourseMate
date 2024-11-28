@@ -7,17 +7,27 @@ CourseMate is a web app that helps students organize their academic life in one 
 - To-do List
 - Syllabus Dropbox
 
-## How to use:
-1. Download the folder to your local device
-2. Once the folder is in a local device, head into the terminal within the CourseMate folder
-3. Once in the terminal and the path is in CourseMate, type in "npm install" then enter (only if you dont have react and node)
-4. Once the device finished installing, everything should be ready to go!
-5. Next, type in "cd Server"
-6. Make sure your path is in CourseMate/Server
-7. In the terminal type in "node server.js" and this will get the server up and running
-8. Then, in a new terminal, make sure you are in CourseMate/my-app
-9. When in the said path, in your new terminal type in "npm start"
-10. That's it! Your device should automatically open the CourseMate website on your default web browser!
+## Prerequisites:
+Before the installation process, make sure you have the following installed on you device:
+- Node.js (If not, download it from nodejs.org)
+- React.js
+
+## Installation and Setup:
+1. Download the folder to your local device:
+  ```git clone <repo_url>```
+3. Once the folder is in a local device, head into the terminal within the CourseMate folder
+4. Once in the terminal and the path, install react.js and node.js if not installed:
+   ```npm install```
+6. Once the device finished installing, everything should be ready to go!
+8. Make sure your path is in CourseMate/Server
+   ```cd Server```
+10. In the terminal type, start the server by:
+    ```node server.js```
+12. Once server is up and running, in a new terminal, navigate to my-app from CourseMate:
+    ```cd my-app```
+14. When in the said path, start the react application:
+    ```npm start```
+16. That's it! Your device should automatically open the CourseMate website on your default web browser!
 
 ## Authors
 - [@Adil Guluzade](https://www.github.com/adilgulu) 218636316
