@@ -28,7 +28,7 @@ Before the installation process, make sure you have the following installed on y
 8. When in the said path, start the react application:
     ``` npm start ```
 9. That's it! Your device should automatically open the CourseMate website on your default web browser!
-**Keep in mind to ALWAYS run the backend server before the frontend**
+  **Keep in mind to ALWAYS run the backend server before the frontend**
 
 ## Authors
 - [@Adil Guluzade](https://www.github.com/adilgulu) 218636316
