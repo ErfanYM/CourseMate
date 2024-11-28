@@ -15,19 +15,20 @@ Before the installation process, make sure you have the following installed on y
 ## Installation and Setup:
 1. Download the folder to your local device:
   ``` git clone <repo_url> ```
-3. Once the folder is in a local device, head into the terminal within the CourseMate folder
-4. Once in the terminal and the path, install react.js and node.js if not installed:
+2. Once the folder is in a local device, head into the terminal within the CourseMate folder
+3. Once in the terminal and the path, install react.js and node.js if not installed:
    ``` npm install ```
-6. Once the device finished installing, everything should be ready to go!
-8. Make sure your path is in CourseMate/Server
+4. Once the device finished installing, everything should be ready to go!
+5. Make sure your path is in CourseMate/Server
    ``` cd Server ```
-10. In the terminal type, start the server by:
+6. In the terminal type, start the server by:
     ``` node server.js ```
-12. Once server is up and running, in a new terminal, navigate to my-app from CourseMate:
+7. Once server is up and running, in a new terminal, navigate to my-app from CourseMate:
     ``` cd my-app ```
-14. When in the said path, start the react application:
+8. When in the said path, start the react application:
     ``` npm start ```
-16. That's it! Your device should automatically open the CourseMate website on your default web browser!
+9. That's it! Your device should automatically open the CourseMate website on your default web browser!
+**Keep in mind to ALWAYS run the backend server before the frontend**
 
 ## Authors
 - [@Adil Guluzade](https://www.github.com/adilgulu) 218636316
