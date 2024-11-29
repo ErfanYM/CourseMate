@@ -1,42 +1,68 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import Courses from './components/Courses';
 import Calendar from './components/Calendar';
-//import './style.css';
+import { AddCourse, DeleteCourse, GetCourses, UpdateCourse } from "./NetworkController";
+import Notes from './components/Notes';
+import Timer from './components/Timer'; // Import the Pomodoro Timer
+import LoginSignup from './components/LoginSignup'; // Import the LoginSignup component
 
 function App() {
-  // Start with an empty course list
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
   const [courses, setCourses] = useState([]);
-
   const [tasks, setTasks] = useState({});
+  const [notes, setNotes] = useState([]);
 
+  // On page load, get all of our courses
+  useEffect(() => {
+    if (isLoggedIn) {
+      refreshCourses();
+    }
+  }, [isLoggedIn]);
 
-  // Function to add a new course
-  const addCourse = (course) => {
-    setCourses([...courses, course]); // destructring an array
+  const refreshCourses = () => {
+    GetCourses().then(res => {
+      setCourses(res);
+    });
   };
 
-  const deleteCourse = (index) =>{
-    // Delete element at index
-    setCourses(courses.filter((_, i) => i !== index));
-  }
+  // Function to handle login (this is a placeholder; integrate with backend if needed)
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  // Define course-related functions (addCourse, updateCourse, etc.)
+  const addCourse = (course) => {
+    AddCourse(course).then(() => {
+      refreshCourses();
+    });
+  };
+
+  const updateCourse = (course) => {
+    UpdateCourse(course).then(() => {
+      refreshCourses();
+    });
+  };
+
+  const deleteCourse = (id) => {
+    DeleteCourse(id).then(() => {
+      refreshCourses();
+    });
+  };
 
   const addOrUpdateTask = (dateKey, task, editIndex = null) => {
     setTasks((prevTasks) => {
       const updatedTasksForDay = prevTasks[dateKey] ? [...prevTasks[dateKey]] : [];
-      
       if (editIndex !== null) {
-        updatedTasksForDay[editIndex] = task; // Edit existing task
+        updatedTasksForDay[editIndex] = task;
       } else {
-        updatedTasksForDay.push(task); // Add new task
+        updatedTasksForDay.push(task);
       }
-
       updatedTasksForDay.sort((a, b) => {
         const priorityOrder = { High: 1, Medium: 2, Low: 3 };
         return priorityOrder[a.priority] - priorityOrder[b.priority];
       });
-
       return { ...prevTasks, [dateKey]: updatedTasksForDay };
     });
   };
@@ -48,47 +74,59 @@ function App() {
     });
   };
 
+  const addNote = (note) => setNotes([...notes, note]);
+  const deleteNote = (index) => setNotes(notes.filter((_, i) => i !== index));
+
   return (
     <Router>
-      <Header />
-      <div className="main-container">
-        <Routes>
-        <Route
-            path="/"
-            element={
-              <>
-                <section className="courses-section">
-                  <Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse} />
-                </section>
-                <section className="calendar-section">
-                  <Calendar 
-                    tasks={tasks} 
-                    addOrUpdateTask={addOrUpdateTask} 
-                    deleteTask={deleteTask}
-                  />
-                </section>
-              </>
-            }
-          />
-        <Route
-            path="/courses"
-            element={
-              <Courses
-                courses={courses}
-                addCourse={addCourse}
-                deleteCourse={deleteCourse}
+      {isLoggedIn ? (
+        <>
+          <Header />
+          <div className="main-container">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <section className="courses-section">
+                      <Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse} updateCourse={updateCourse} />
+                    </section>
+                    <section className="calendar-section">
+                      <Calendar tasks={tasks} addOrUpdateTask={addOrUpdateTask} deleteTask={deleteTask} />
+                    </section>
+                  </>
+                }
               />
-            }
-          />
+              <Route
+                path="/courses"
+                element={
+                  <Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse} />
+                }
+              />
+              <Route
+                path="/calendar"
+                element={<Calendar tasks={tasks} addOrUpdateTask={addOrUpdateTask} deleteTask={deleteTask} />}
+              />
+              <Route
+                path="/notes"
+                element={<Notes notes={notes} addNote={addNote} deleteNote={deleteNote} />}
+              />
+              <Route
+                path="/timer"
+                element={<Timer />} // Add the Pomodoro Timer as its own route
+              />
+            </Routes>
+          </div>
+        </>
+      ) : (
+        <Routes>
           <Route
-            path="/calendar"
-            element={<Calendar tasks={tasks} addOrUpdateTask={addOrUpdateTask} deleteTask={deleteTask} />}
+            path="/*"
+            element={<LoginSignup onLogin={handleLogin} />} // Pass login handler
           />
         </Routes>
-      </div>
+      )}
     </Router>
-
-    
   );
 }
 
