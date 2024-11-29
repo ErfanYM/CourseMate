@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Trash from '../icons/trash.svg';
+import Pencil from '../icons/pencil.svg';
 
 // Define a functional component named 'Courses' that accepts props 'courses' and 'addCourse'.
 const Courses = ({ courses, addCourse, deleteCourse, updateCourse }) => {
@@ -73,26 +75,26 @@ const Courses = ({ courses, addCourse, deleteCourse, updateCourse }) => {
   return (
     <div className="courses-section">
       <h2>Your Courses</h2>
+      <button onClick={() => openModal()} className="add-course-btn">
+          + Add Course
+        </button>
       <div className="courses">
         {courses.length > 0 ? (
           courses.map((course, index) => (
             <div key={index} className="course-card">
-              <h3>
+               <h3>
                 {course.name} - {course.term}
               </h3>
               <p>Credits: {course.credits}</p>
               <p>Prof: {course.professorName}</p>
               <p>Location: {course.location}</p>
-              <button onClick={() => deleteCourse(course.id)}>Remove</button>
-              <button onClick={() => openModal(index)}>Edit</button>
+              <button className="delete-course-btn" onClick={() => deleteCourse(course.id)}><img className="trash-icon" src={Trash} alt=""/> Remove</button>
+              <button className="edit-course-btn" onClick={() => openModal(index)}><img className="pencil-icon" src={Pencil} alt=""/> Edit</button>
             </div>
           ))
         ) : (
           <p>No courses added yet.</p>
         )}
-        <button onClick={() => openModal()} className="add-course-btn">
-          + Add Course
-        </button>
       </div>
 
       {isModalOpen && (

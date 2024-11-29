@@ -4,13 +4,13 @@
   justify-content: space-between;
   padding: 20px;
   gap: 20px;
+  position: relative;
 }
 
 .courses-section {
   flex: 1 1 25%;
   max-width: 100%;
   margin-bottom: 20px;
-  
 }
 
 .calendar-section {
@@ -59,21 +59,197 @@
   color: white;
 }
 
-/* Course Section */
+
 .courses {
-  background-color: #fafafa; 
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* Responsive grid */
+  gap: 20px;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .course-card {
-  background-color: #fafafa;
+  width: 300px;
+  /* Set a fixed width for the course cards */
+  padding: 8px;
+  /* Adjust padding to make the card smaller */
   margin: 10px 0;
-  padding: 15px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  color: #555;
+  /* Add margin to space out cards */
+  border: 1px solid #ccc;
+  /* Light border for the card */
+  border-radius: 15px;
+  /* Increased value for more rounded corners */
+  background-color: #e3f2fd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow */
+  transition: transform 0.3s ease;
+  /* Smooth hover effect */
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  /* Lift effect on hover */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.courses {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  /* Align cards to the left */
+  gap: 10px;
+  /* Add space between the cards */
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  /* Use Poppins globally */
+  background-color: #e0e0e0;
+  /* Light grayish-blue */
+  color: #333;
+  /* Text color */
+
+}
+
+.course-card h3 {
+  font-size: 1.4em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.course-card p {
+  font-size: 1em;
+  color: #666;
+  margin: 5px 0;
+}
+
+.course-card h3 {
+  position: relative;
+  font-size: 1.2em;
+}
+
+.course-icon {
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.course-card button {
+  background-color: #4caf50;
+  /* Green */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin: 5px;
+  border-radius: 12px;
+
+}
+
+.course-card button:hover {
+  background-color: #45a049;
+  /* Darker green */
+}
+
+.remove-btn {
+  background-color: #f44336;
+  /* Red for remove */
+}
+
+.remove-btn:hover {
+  background-color: #e53935;
+}
+
+.course-card {
+  opacity: 0;
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Dark mode */
+body.dark-mode {
+  background-color: #333;
+  color: black;
+  
+}
+
+/* Dark mode toggle button styling */
+.dark-mode-toggle {
+  cursor: pointer;
+  background-color: #444;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+  width: 100px;
+  /* Set a fixed width */
+  height: 20px;
+  /* Set a fixed height */
+  border-radius: 20px;
+  /* Makes it oval */
+  padding: 0;
+  /* Remove excess padding */
+  font-size: 14px;
+  /* Adjust text size */
+  position: absolute;
+  top: 10px;
+  /* Distance from the top of the container */
+  right: 10px;
+  /* Distance from the right of the container */
+
+}
+
+body.dark-mode .calendar { 
+  background-color: #333;
+  color: black;
+}
+
+body.dark-mode .calendar h2 { 
+  color: white;
+}
+
+.courses-section {
+  color: #333;
+}
+
+body.dark-mode .courses-section {
+  color: white;
+}
+
+body.dark-mode .modal-background {
+  color: #333;
+}
+
+
+body.dark-mode .navigation-button {
+  background-color: white;
+  color: black;
+}
+
+.dark-mode-toggle:hover {
+  background-color: #666;
+}
+
+/* Make sure dates are visible */
+body.dark-mode .calendar-day {
+  visibility: visible;
+  /* Ensure dates are not accidentally hidden */
+  display: block;
+  /* Make sure the dates are displayed correctly */
+
 }
 
 /* Add Course Button */
@@ -93,11 +269,11 @@
 }
 
 /* Calendar Section */
-.calendar {
-  background-color: #fafafa; 
+.calendar { 
+  background-color: #e0e0e0; 
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); */
   width: 100%;
 }
 
@@ -167,6 +343,7 @@
   justify-content: center;
   flex-grow: 1;
 }
+
 .day {
   background-color: #f5f5f5;
   flex: 1;
@@ -202,7 +379,8 @@
   font-size: 0.85rem;
   border-radius: 5px;
   transition: background-color 0.2s ease;
-  margin-top: auto; /* Positions button at the bottom */
+  margin-top: auto;
+  /* Positions button at the bottom */
 }
 
 .day .add-task-button:hover {
@@ -395,4 +573,30 @@
 .pomodoro-timer p {
   font-size: 2em;
   margin: 20px 0;
+}
+
+.delete-course-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90px;
+  justify-content: space-around;
+}
+
+.edit-course-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90px;
+  justify-content: space-around;
+}
+
+.trash-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.pencil-icon {
+  width: 15px;
+  height: 15px;
 }

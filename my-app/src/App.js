@@ -12,17 +12,29 @@ function App() {
   const [courses, setCourses] = useState([]);
   const [tasks, setTasks] = useState({});
   const [notes, setNotes] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
 
   // On page load, get all of our courses
   useEffect(() => {
     refreshCourses();
   }, []);
 
+  // Apply dark mode class to body when dark mode state changes
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+      localStorage.setItem('darkMode', 'true');
+    } else {
+      document.body.classList.remove('dark-mode');
+      localStorage.setItem('darkMode', 'false');
+    }
+  }, [isDarkMode]);
+
   const refreshCourses = () => {
     GetCourses().then(res => {
       setCourses(res);
     })
-  } 
+  }
 
   // Function to add a new course
   const addCourse = (course) => {
@@ -70,17 +82,25 @@ function App() {
 
   const deleteNote = (index) => setNotes(notes.filter((_, i) => i !== index));
 
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    setIsDarkMode(prevState => !prevState);
+  };
+
   return (
     <Router>
       <Header />
       <div className="main-container">
+      <button onClick={toggleDarkMode} className="dark-mode-toggle">
+        {isDarkMode ? "Light Mode" : "Dark Mode"}
+      </button>
         <Routes>
           <Route
             path="/"
             element={
               <>
                 <section className="courses-section">
-                  <Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse} updateCourse={updateCourse}/>
+                  <Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse} updateCourse={updateCourse} />
                 </section>
                 <section className="calendar-section">
                   <Calendar tasks={tasks} addOrUpdateTask={addOrUpdateTask} deleteTask={deleteTask} />
