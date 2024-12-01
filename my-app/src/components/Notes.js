@@ -1,33 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
 
 const Notes = () => {
-  const [notes, setNotes] = useState('');
+  const [notes, setNotes] = useState([]);
+  const [noteText, setNoteText] = useState('');
+  const [editIndex, setEditIndex] = useState(null);
 
-  // Load notes from localStorage when the component mounts
-  useEffect(() => {
-    const savedNotes = localStorage.getItem('weeklyNotes');
-    if (savedNotes) {
-      setNotes(savedNotes);
+  // Add or update note function
+  const handleAddOrUpdateNote = () => {
+    if (editIndex !== null) {
+      // Update an existing note
+      const updatedNotes = [...notes];
+      updatedNotes[editIndex] = noteText;
+      setNotes(updatedNotes);
+      setEditIndex(null); // Reset edit mode
+    } else {
+      // Add a new note
+      setNotes([...notes, noteText]);
     }
-  }, []);
+    setNoteText(''); // Clear the input field
+  };
 
-  // Save notes to localStorage whenever the user types
-  const handleNotesChange = (event) => {
-    const updatedNotes = event.target.value;
-    setNotes(updatedNotes);
-    localStorage.setItem('weeklyNotes', updatedNotes);
+  // Start editing a note
+  const handleEditNote = (index) => {
+    setEditIndex(index);
+    setNoteText(notes[index]); // Populate input with the current note text
+  };
+
+  // Delete a note
+  const handleDeleteNote = (index) => {
+    setNotes(notes.filter((_, i) => i !== index));
   };
 
   return (
-    <div className="notes-section">
-      <h3>Notes</h3>
-      <textarea
-        value={notes}
-        onChange={handleNotesChange}
-        placeholder="Type your weekly notes here..."
-        rows={6}
-        className="notes-textarea"
-      ></textarea>
+    <div className="notes-container">
+      <h2>Notes</h2>
+      <div className="notes-input">
+        <textarea
+          value={noteText}
+          onChange={(e) => setNoteText(e.target.value)}
+          placeholder="Write your note here..."
+        ></textarea>
+        <button onClick={handleAddOrUpdateNote}>
+          {editIndex !== null ? 'Update Note' : 'Add Note'}
+        </button>
+      </div>
+      <ul className="notes-list">
+        {notes.map((note, index) => (
+          <li key={index}>
+            <span>{note}</span>
+            <div>
+              <button onClick={() => handleEditNote(index)}>Edit</button>
+              <button onClick={() => handleDeleteNote(index)}>Delete</button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

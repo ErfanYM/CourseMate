@@ -13,24 +13,52 @@ function App() {
   const [courses, setCourses] = useState([]);
   const [tasks, setTasks] = useState({});
   const [notes, setNotes] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
+  
 
-  // On page load, get all of our courses
+  // Check login state on app load
+  const [username, setUsername] = useState("");
   useEffect(() => {
-    if (isLoggedIn) {
-      refreshCourses();
+    const token = localStorage.getItem("authToken");
+    const storedUsername= localStorage.getItem("username");
+    if (token && storedUsername) {
+      // Here you could validate the token by sending it to the backend or decoding it
+      setIsLoggedIn(true);
+      setUsername(storedUsername);
+    } else {
+      setIsLoggedIn(false);
     }
-  }, [isLoggedIn]);
+  }, []);
+
+
+
+  // On page load, get all courses if logged in
+  useEffect(() => {
+      refreshCourses();
+  }, []);
+    // Apply dark mode class to body when dark mode state changes
+    useEffect(() => {
+      if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'true');
+      } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'false');
+      }
+    }, [isDarkMode]);
 
   const refreshCourses = () => {
     GetCourses().then(res => {
       setCourses(res);
     });
   };
-
-  // Function to handle login (this is a placeholder; integrate with backend if needed)
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
+    // Function to handle logout
+    const handleLogout = () => {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("username");
+      setIsLoggedIn(false);
+      window.location.reload(); // Refresh to show login/signup page
+    };
 
   // Define course-related functions (addCourse, updateCourse, etc.)
   const addCourse = (course) => {
@@ -77,22 +105,39 @@ function App() {
   const addNote = (note) => setNotes([...notes, note]);
   const deleteNote = (index) => setNotes(notes.filter((_, i) => i !== index));
 
+    // Toggle dark mode
+    const toggleDarkMode = () => {
+      setIsDarkMode(prevState => !prevState);
+    }
+
   return (
     <Router>
       {isLoggedIn ? (
         <>
-          <Header />
+          <Header username={username} onLogout={handleLogout} />
           <div className="main-container">
+          <button onClick={toggleDarkMode} className="dark-mode-toggle">
+            {isDarkMode ? "Light Mode" : "Dark Mode"}
+          </button>
             <Routes>
               <Route
                 path="/"
                 element={
                   <>
                     <section className="courses-section">
-                      <Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse} updateCourse={updateCourse} />
+                      <Courses
+                        courses={courses}
+                        addCourse={addCourse}
+                        deleteCourse={deleteCourse}
+                        updateCourse={updateCourse}
+                      />
                     </section>
                     <section className="calendar-section">
-                      <Calendar tasks={tasks} addOrUpdateTask={addOrUpdateTask} deleteTask={deleteTask} />
+                      <Calendar
+                        tasks={tasks}
+                        addOrUpdateTask={addOrUpdateTask}
+                        deleteTask={deleteTask}
+                      />
                     </section>
                   </>
                 }
@@ -100,30 +145,35 @@ function App() {
               <Route
                 path="/courses"
                 element={
-                  <Courses courses={courses} addCourse={addCourse} deleteCourse={deleteCourse} />
+                  <Courses
+                    courses={courses}
+                    addCourse={addCourse}
+                    deleteCourse={deleteCourse}
+                  />
                 }
               />
               <Route
                 path="/calendar"
-                element={<Calendar tasks={tasks} addOrUpdateTask={addOrUpdateTask} deleteTask={deleteTask} />}
+                element={
+                  <Calendar tasks={tasks} addOrUpdateTask={addOrUpdateTask} deleteTask={deleteTask} />
+                }
               />
               <Route
                 path="/notes"
                 element={<Notes notes={notes} addNote={addNote} deleteNote={deleteNote} />}
               />
-              <Route
-                path="/timer"
-                element={<Timer />} // Add the Pomodoro Timer as its own route
-              />
+              <Route path="/timer" element={<Timer />} />
             </Routes>
           </div>
         </>
       ) : (
         <Routes>
+          <Route path="/*" element={<LoginSignup onLogin={() => setIsLoggedIn(true)} />} />
           <Route
-            path="/*"
-            element={<LoginSignup onLogin={handleLogin} />} // Pass login handler
+            path="/notes"
+            element={<Notes notes={notes} addNote={addNote} deleteNote={deleteNote} />}
           />
+          <Route path="/timer" element={<Timer />} />
         </Routes>
       )}
     </Router>
