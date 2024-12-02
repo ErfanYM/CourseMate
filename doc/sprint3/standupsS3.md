@@ -1,4 +1,4 @@
-[Nov 20, 2024] Sprint 2 Standup 1
+[Nov 20, 2024] Sprint 3 Standup 1
 
 1. What did you work on since the last standup?
    - Acknowledged what was and wasn't done in Sprint 2 and discussed what needs to be done during Sprint 3.
@@ -9,7 +9,7 @@
 4. Do you have any blockers?
    - There didn't seem to be any blockers for our team.
 
-[Nov 23, 2024] Sprint 2 Standup 2
+[Nov 23, 2024] Sprint 3 Standup 2
 
 1. What did you work on since the last standup?
    - Put some work into the features and completed one of the features. We also looked into the documentation aspect of the project, however the TA assigned to our project still has not responded to any emails and has not given any further information.
@@ -20,7 +20,7 @@
 4. Do you have any blockers?
    - No blocks, everything seems to be running smoothly on everyone's side. However, the only issue is the documentation. We don't wanna take any further action without the TA's knowing, and in order to take the next action, the TA has to communicate to our group how to setup a documentation.
 
-[Nov 24, 2024] Sprint 2 Standup 3 _EMERGENCY MEETING_
+[Nov 24, 2024] Sprint 3 Standup 3 _EMERGENCY MEETING_
 
 1. What did you work on since the last standup?
    - Not much progress has been made in less than 24 hours, however an emergency meeting was called.
@@ -31,7 +31,7 @@
 4. Do you have any blockers?
    - A member of the team accidentally pushed work into the main branch instead of the seperate branch and unfortunaly caused problems in the code. After taking time to conduct a quick meeting, we were able to communicate with each other and solve the problem in order to continue and make good progress in the project.
 
-[Nov 29, 2024] Sprint 2 Standup 4
+[Nov 29, 2024] Sprint 3 Standup 4
 
 1. What did you work on since the last standup?
    - Our final meeting has taken place to finish the last puzzle piece of a feature and making sure everything is ready to demo.
